@@ -22,6 +22,8 @@ import static org.junit.Assert.*;
  * 
  * Frontera:
  * CF1: Multas a devoluciones hechas en la fecha exacta (multa 0).
+ * CF2: Multas a devoluciones hechas un dia despues de la fecha.
+ *  
  * 
  * Clases de equivalencia:
  * CE1: Multas hechas a devolciones realizadas en fechas posteriores
@@ -75,6 +77,24 @@ public class AlquilerTest {
                 ,sa.valorMultaRetrasoxDia()*3,sa.consultarMultaAlquiler(55, java.sql.Date.valueOf("2005-12-28")));
                 
     }
+    @Test
+    public void CF2Test() throws ExcepcionServiciosAlquiler{
+        ServiciosAlquiler sa=ServiciosAlquilerItemsStub.getInstance();
+        
+        Item i1=new Item(sa.consultarTipoItem(1), 44, "Los 4 Fantasticos", "Los 4 Fantásticos  es una película de superhéroes  basada en la serie de cómic homónima de Marvel.", java.sql.Date.valueOf("2005-06-08"), 2000, "DVD", "Ciencia Ficcion");        
+        sa.registrarCliente(new Cliente("Juan Suarez",4442,"14234","calle 123","aa@gmail.com"));
+        sa.registrarItem(i1);
+                
+        Item item=sa.consultarItem(44);
+        
+        sa.registrarAlquilerCliente(java.sql.Date.valueOf("2005-12-20"), 3842, item, 5);
+        
+        assertEquals("No se calcula correctamente la multa (0) "
+                + "cuando la devolucion se realiza el dia limite."
+                ,0,sa.consultarMultaAlquiler(44, java.sql.Date.valueOf("2005-12-25")));
+                
+    }
+
     
     
     
