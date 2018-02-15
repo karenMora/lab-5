@@ -18,6 +18,8 @@ import edu.eci.pdsw.samples.services.ServiciosAlquiler;
 import edu.eci.pdsw.samples.services.ServiciosAlquilerItemsStub;
 import java.sql.Date;
 import javax.validation.constraints.AssertTrue;
+import org.junit.Assert;
+import org.junit.Test;
 /**
  *
  * 
@@ -49,7 +51,7 @@ public class ClientesTest {
         
         ServiciosAlquiler sa=ServiciosAlquilerItemsStub.getInstance();
         sa.registrarCliente(p);
-        AssertTrue(sa.existeCliente(p.getDocumento()).equals(true));
+        Assert.assertTrue((boolean) sa.existeCliente(p.getDocumento()));
     }
     
     
