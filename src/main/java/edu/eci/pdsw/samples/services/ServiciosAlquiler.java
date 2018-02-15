@@ -105,4 +105,12 @@ public abstract class ServiciosAlquiler {
 
     public abstract void vetarCliente(long docu, boolean estado) throws ExcepcionServiciosAlquiler;
 
+    public Object existeCliente(long documento) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Object existeCliente(long documento) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

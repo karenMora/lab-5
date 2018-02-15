@@ -50,6 +50,16 @@ public class ServiciosAlquilerItemsStub extends ServiciosAlquiler implements Ser
         }
         return c;
     }
+    
+    public boolean existeCliente(long docu)throws ExcepcionServiciosAlquiler {
+        boolean c=false;
+        if(clientes.containsKey(docu)){
+            c=true;
+        }else{
+            c=false;
+        }
+        return c;
+    }
 
     @Override
     public List<Cliente> consultarClientes() throws ExcepcionServiciosAlquiler {
