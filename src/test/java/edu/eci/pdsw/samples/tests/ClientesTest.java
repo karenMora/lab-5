@@ -17,6 +17,7 @@ import edu.eci.pdsw.samples.entities.TipoItem;
 import edu.eci.pdsw.samples.services.ServiciosAlquiler;
 import edu.eci.pdsw.samples.services.ServiciosAlquilerItemsStub;
 import java.sql.Date;
+import java.util.ArrayList;
 import javax.validation.constraints.AssertTrue;
 import org.junit.Assert;
 import org.junit.Test;
@@ -45,10 +46,19 @@ public class ClientesTest {
     @Test
     public void DeberiaRegistrarNuevosClientes() throws ExcepcionServiciosAlquiler{
         TipoItem tipItm=new TipoItem(10,"ESte es un tipo ITEM");
+        TipoItem tipItm2=new TipoItem(10,"papas");
+        TipoItem tipItm3=new TipoItem(10,"gaseosa");
         Item item=new Item(tipItm,11, "itemName", "itemDescription", java.sql.Date.valueOf("2015-10-01"), 16500,"formatoREnta","genero");
+        Item item2=new Item(tipItm2,11, "pedro", "hola", java.sql.Date.valueOf("2015-12-10"), 16500,"formatoREnta","femenino");
+        Item item3=new Item(tipItm3,11, "carol", "buenas tardes", java.sql.Date.valueOf("2015-09-13"), 16500,"formatoREnta","masculino");
         ItemRentado itemRnt=new ItemRentado(item,java.sql.Date.valueOf("2017-01-25"), java.sql.Date.valueOf("2018-07-15"));
-        Cliente p= new Cliente("karen",1020124,3214569 ,"Ak 200","karen.mora@mail.escuelaing.edu.co",true,itemRnt);
-        
+        ItemRentado itemRnt2=new ItemRentado(item2,java.sql.Date.valueOf("2016-09-12"), java.sql.Date.valueOf("2017-09-20"));
+        ItemRentado itemRnt3=new ItemRentado(item3,java.sql.Date.valueOf("2015-02-02"), java.sql.Date.valueOf("2016-12-01"));
+        ArrayList<ItemRentado> arreglo = null;
+        arreglo.add(itemRnt);
+        arreglo.add(itemRnt2);
+        arreglo.add(itemRnt3);
+        Cliente p= new Cliente("karen",1020124,"3214569" ,"Ak 200","karen.mora@mail.escuelaing.edu.co",true,arreglo);
         ServiciosAlquiler sa=ServiciosAlquilerItemsStub.getInstance();
         sa.registrarCliente(p);
         Assert.assertTrue((boolean) sa.existeCliente(p.getDocumento()));

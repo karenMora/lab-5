@@ -51,6 +51,12 @@ public class ServiciosAlquilerItemsStub extends ServiciosAlquiler implements Ser
         return c;
     }
     
+    /**
+     *
+     * @param docu
+     * @return
+     * @throws ExcepcionServiciosAlquiler
+     */
     public boolean existeCliente(long docu)throws ExcepcionServiciosAlquiler {
         boolean c=false;
         if(clientes.containsKey(docu)){
