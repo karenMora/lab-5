@@ -94,8 +94,6 @@ public class AlquilerTest {
                 ,0,sa.consultarMultaAlquiler(44, java.sql.Date.valueOf("2005-12-25")));
                 
     }
-
-    
     
     
     

@@ -54,19 +54,38 @@ public class ClientesTest {
         ItemRentado itemRnt=new ItemRentado(item,java.sql.Date.valueOf("2017-01-25"), java.sql.Date.valueOf("2018-07-15"));
         ItemRentado itemRnt2=new ItemRentado(item2,java.sql.Date.valueOf("2016-09-12"), java.sql.Date.valueOf("2017-09-20"));
         ItemRentado itemRnt3=new ItemRentado(item3,java.sql.Date.valueOf("2015-02-02"), java.sql.Date.valueOf("2016-12-01"));
-        ArrayList<ItemRentado> arreglo = null;
+        ArrayList<ItemRentado> arreglo = new ArrayList<ItemRentado>();
         arreglo.add(itemRnt);
         arreglo.add(itemRnt2);
         arreglo.add(itemRnt3);
-        Cliente p= new Cliente("karen",1020124,"3214569" ,"Ak 200","karen.mora@mail.escuelaing.edu.co",true,arreglo);
         ServiciosAlquiler sa=ServiciosAlquilerItemsStub.getInstance();
-        sa.registrarCliente(p);
-        Assert.assertTrue((boolean) sa.existeCliente(p.getDocumento()));
+        sa.registrarCliente(new Cliente("karen",7564656,"3214569" ,"Ak 200","karen.mora@mail.escuelaing.edu.co",true,arreglo));
+        assertEquals(7564656,sa.consultarCliente(7564656).getDocumento());
+    }
+    
+    /**
+    * registro de clientes nuevos sin saber si estan vetados
+    */
+     @Test
+    public void nuevoCLienteSinRestriccion()throws ExcepcionServiciosAlquiler{
+        ServiciosAlquiler sa=ServiciosAlquilerItemsStub.getInstance();
+        sa.registrarCliente(new Cliente("Pedro Perez",134567,"123456","calle 167","pedro.perez@gmail.com"));
+        assertEquals(134567,sa.consultarCliente(134567).getDocumento());
     }
     
     
+    @Test
+    public void obtenerElNombre() throws ExcepcionServiciosAlquiler{
+        ServiciosAlquiler sa=ServiciosAlquilerItemsStub.getInstance();
+        sa.registrarCliente(new Cliente("carlos",1020124,"2456807" ,"pepe sierra","carlosPeres@gmail.com"));
+        assertEquals("carlos",sa.consultarCliente(1020124).getNombre());
+        
+    }
     
-    
-    
-    
+    @Test
+    public void obtenerElDocumento() throws ExcepcionServiciosAlquiler{
+        ServiciosAlquiler sa=ServiciosAlquilerItemsStub.getInstance();
+        sa.registrarCliente(new Cliente("pedro",9874465,"2456807" ,"pepe sierra","pedroTorres@gmail.com"));
+        assertEquals("pedroTorres@gmail.com",sa.consultarCliente(9874465).getEmail());
+    }
 }
