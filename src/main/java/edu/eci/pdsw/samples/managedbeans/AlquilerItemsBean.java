@@ -37,6 +37,7 @@ public class AlquilerItemsBean implements Serializable {
     ServiciosAlquiler sp = ServiciosAlquiler.getInstance();
 
     public AlquilerItemsBean() throws ExcepcionServiciosAlquiler {
+        numeroItem = 0;
         clientes = sp.consultarClientes();
         items = sp.consultarItemsDisponibles();
         cliente=clientes.get(1);
@@ -65,6 +66,7 @@ public class AlquilerItemsBean implements Serializable {
     }
     
     public List<Integer> getMultas(){
+        calcularMulta();
         return multas;
     }
     public void setMultas(List<Integer> m) {
@@ -74,14 +76,13 @@ public class AlquilerItemsBean implements Serializable {
     public int getNumeroItem(){
         return numeroItem;
     }
-    public void setNumeroItem(String i)  {
+    public void setNumeroItem(int i) throws ExcepcionServiciosAlquiler  {
         
-        numeroItem = Integer.parseInt(i);
-        try {
-            item = sp.consultarItem(numeroItem);
-        } catch (ExcepcionServiciosAlquiler ex) {
-            Logger.getLogger(AlquilerItemsBean.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        numeroItem = i;
+        item();
+        
+        
+        
          
     }
     public void registrar(){
@@ -94,10 +95,16 @@ public class AlquilerItemsBean implements Serializable {
         
     }
     
-    
     private void rentados(){
         try {
             rentados = sp.consultarItemsCliente(cliente.getDocumento());
+        } catch (ExcepcionServiciosAlquiler ex) {
+            Logger.getLogger(AlquilerItemsBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    private void item(){
+        try {
+            item = sp.consultarItem(numeroItem);
         } catch (ExcepcionServiciosAlquiler ex) {
             Logger.getLogger(AlquilerItemsBean.class.getName()).log(Level.SEVERE, null, ex);
         }
