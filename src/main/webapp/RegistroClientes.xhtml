@@ -10,7 +10,20 @@
     <h:head>
     </h:head>
     <h:body>
-	<h:form>
+	<h:form id="formuladioCliente">
+            <h3>Nombre</h3>
+            <h:inputText title="Nombre" value="#{Cliente.nombre}"></h:inputText>
+            <h3>Documento</h3>
+            <h:inputText title="Documento" value="#{Cliente.docuento}"></h:inputText>
+            <h3>Telefono</h3>
+            <h:inputText title="Telefono" value="#{Cliente.telefono}"></h:inputText>
+            <h3>Direccion</h3>
+            <h:inputText title="Direccion" value="#{Cliente.direccion}"></h:inputText>
+            <h3>Email</h3>
+            <h:inputText title="Email" value="#{Cliente.email}"></h:inputText>
+            
+            <p:commandButton value="add cliente" actionListener="#{Cliente.addCliente}" update="formuladioCliente"></p:commandButton>
+            
 	</h:form>
     </h:body>
 </html>

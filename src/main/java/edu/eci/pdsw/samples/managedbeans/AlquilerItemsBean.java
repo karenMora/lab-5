@@ -33,6 +33,12 @@ public class AlquilerItemsBean implements Serializable {
     private List<Item> items;
     private Item item;
     private int numeroItem;
+    
+    String nombre;
+    long documento=0;
+    String telefono;
+    String direccion;
+    String email;
 
     ServiciosAlquiler sp = ServiciosAlquiler.getInstance();
 
@@ -79,11 +85,7 @@ public class AlquilerItemsBean implements Serializable {
     public void setNumeroItem(int i) throws ExcepcionServiciosAlquiler  {
         
         numeroItem = i;
-        item();
-        
-        
-        
-         
+        item();    
     }
     public void registrar(){
         Date localDate = Date.valueOf(LocalDate.MAX);
@@ -112,6 +114,52 @@ public class AlquilerItemsBean implements Serializable {
     
     private void calcularMulta(){
         
+    }
+    
+    public void addCliente(){
+        clientes.add(new Cliente(nombre,documento,telefono,direccion,email));
+    }
+    
+    public String getNombre() throws ExcepcionServiciosAlquiler{
+        return sp.consultarCliente(documento).getNombre();
+    }
+    public void setNombre(){
+        this.nombre=nombre;
+    }
+    
+    public long getDocumento()throws ExcepcionServiciosAlquiler{
+        return sp.consultarCliente(documento).getDocumento();
+    }
+    public void setDocumento(){
+        this.documento=documento;
+    }
+    
+    public String getTelefono()throws ExcepcionServiciosAlquiler{
+        return sp.consultarCliente(documento).getTelefono();
+    }
+    
+    public void setTelefono(){
+        this.telefono=telefono;
+    }
+    
+    public String getDireccion()throws ExcepcionServiciosAlquiler{
+        return sp.consultarCliente(documento).getDireccion();
+    }
+    
+    public void setDireccion(){
+        this.direccion=direccion;
+    }
+    
+    public String getEmail()throws ExcepcionServiciosAlquiler{
+        return sp.consultarCliente(documento).getEmail();
+    }
+    
+    public void setEmail(){
+        this.email=email;
+    }
+    
+    public boolean estVEtado()throws ExcepcionServiciosAlquiler{
+        return sp.consultarCliente(documento).isVetado();
     }
     
 }
