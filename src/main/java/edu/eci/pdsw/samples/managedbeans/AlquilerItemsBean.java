@@ -27,18 +27,18 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class AlquilerItemsBean implements Serializable {
     private List<Cliente> clientes;
-    private Cliente cliente;
+    private Cliente SelectedCliente;
     private List<ItemRentado> rentados;
     private List<Integer> multas;
     private List<Item> items;
     private Item item;
     private int numeroItem;
     
-    String nombre;
+    String nombre="";
     long documento=0;
-    String telefono;
-    String direccion;
-    String email;
+    String telefono="";
+    String direccion="";
+    String email="";
 
     ServiciosAlquiler sp = ServiciosAlquiler.getInstance();
 
@@ -46,8 +46,6 @@ public class AlquilerItemsBean implements Serializable {
         numeroItem = 0;
         clientes = sp.consultarClientes();
         items = sp.consultarItemsDisponibles();
-        cliente=clientes.get(1);
-        
     }
 
     public List<Cliente> getClientes(){
@@ -56,12 +54,7 @@ public class AlquilerItemsBean implements Serializable {
     public void setClientes(List<Cliente> x){
         clientes = x;
     }
-    public void setCliente(Cliente c){
-        cliente = c;
-    }
-    public Cliente getCliente(){
-        return cliente;
-    }
+   
     
     public List<ItemRentado> getRentados(){
         rentados();
@@ -90,16 +83,22 @@ public class AlquilerItemsBean implements Serializable {
     public void registrar(){
         Date localDate = Date.valueOf(LocalDate.MAX);
         try {
-            sp.registrarAlquilerCliente(localDate, cliente.getDocumento(), item, 3);
+            sp.registrarAlquilerCliente(localDate, SelectedCliente.getDocumento(), item, 3);
         } catch (ExcepcionServiciosAlquiler ex) {
             Logger.getLogger(AlquilerItemsBean.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
+    public Cliente getSelectedCliente(){
+        return SelectedCliente;
+    }
+    public void setSelectedCliente(Cliente c){
+        SelectedCliente = c;
+    }
     
     private void rentados(){
         try {
-            rentados = sp.consultarItemsCliente(cliente.getDocumento());
+            rentados = sp.consultarItemsCliente(SelectedCliente.getDocumento());
         } catch (ExcepcionServiciosAlquiler ex) {
             Logger.getLogger(AlquilerItemsBean.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -117,45 +116,45 @@ public class AlquilerItemsBean implements Serializable {
     }
     
     public void addCliente(){
-        clientes.add(new Cliente(nombre,documento,telefono,direccion,email));
+        clientes.add(0,(new Cliente(nombre,documento,telefono,direccion,email)));
     }
     
     public String getNombre() throws ExcepcionServiciosAlquiler{
-        return sp.consultarCliente(documento).getNombre();
+        return nombre;
     }
-    public void setNombre(){
-        this.nombre=nombre;
+    public void setNombre(String n){
+        nombre=n;
     }
     
     public long getDocumento()throws ExcepcionServiciosAlquiler{
-        return sp.consultarCliente(documento).getDocumento();
+        return documento;
     }
-    public void setDocumento(){
-        this.documento=documento;
-    }
-    
-    public String getTelefono()throws ExcepcionServiciosAlquiler{
-        return sp.consultarCliente(documento).getTelefono();
+    public void setDocumento(long d){
+        documento=d;
     }
     
-    public void setTelefono(){
-        this.telefono=telefono;
+    public String getTelefono(){
+        return telefono;
     }
     
-    public String getDireccion()throws ExcepcionServiciosAlquiler{
-        return sp.consultarCliente(documento).getDireccion();
+    public void setTelefono(String t){
+      telefono=t;
     }
     
-    public void setDireccion(){
-        this.direccion=direccion;
+    public String getDireccion(){
+        return direccion;
     }
     
-    public String getEmail()throws ExcepcionServiciosAlquiler{
-        return sp.consultarCliente(documento).getEmail();
+    public void setDireccion(String d){
+        direccion=d;
     }
     
-    public void setEmail(){
-        this.email=email;
+    public String getEmail(){
+        return email;
+    }
+    
+    public void setEmail(String e){
+        email=e;
     }
     
     public boolean estVEtado()throws ExcepcionServiciosAlquiler{

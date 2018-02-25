@@ -11,19 +11,53 @@
     </h:head>
     <h:body>
 	<h:form id="formuladioCliente">
-            <h3>Nombre</h3>
-            <h:inputText title="Nombre" value="#{Cliente.nombre}"></h:inputText>
-            <h3>Documento</h3>
-            <h:inputText title="Documento" value="#{Cliente.docuento}"></h:inputText>
-            <h3>Telefono</h3>
-            <h:inputText title="Telefono" value="#{Cliente.telefono}"></h:inputText>
-            <h3>Direccion</h3>
-            <h:inputText title="Direccion" value="#{Cliente.direccion}"></h:inputText>
-            <h3>Email</h3>
-            <h:inputText title="Email" value="#{Cliente.email}"></h:inputText>
-            
-            <p:commandButton value="add cliente" actionListener="#{Cliente.addCliente}" update="formuladioCliente"></p:commandButton>
-            
+            <p:layout fullPage="true"  >
+                <p:layoutUnit position="north"  >
+                    <p:panelGrid  columns="5"   >
+                            <p:outputLabel value="Nombre">
+                                <p:inputText  value="#{AlquilerItems.nombre}"></p:inputText>
+                            </p:outputLabel>
+                            <p:outputLabel value=" Documento ">
+                                <p:inputText value="#{AlquilerItems.documento}"></p:inputText>
+                            </p:outputLabel>
+                            <p:outputLabel value="Telefono">
+                                <p:inputText value="#{AlquilerItems.telefono}"></p:inputText>
+                            </p:outputLabel>
+                            <p:outputLabel value="Direccion">
+                                <p:inputText value="#{AlquilerItems.direccion}"></p:inputText>
+                            </p:outputLabel>
+                            <p:outputLabel value="Email">
+                                <p:inputText value="#{AlquilerItems.email}"></p:inputText>
+                            </p:outputLabel>
+                        </p:panelGrid>
+                </p:layoutUnit>
+                <p:layoutUnit position="center">
+                    <f:facet name="header">
+                        Clientes
+                    </f:facet>
+                    <p:dataTable id = "tab" var="cli" value="#{AlquilerItems.clientes}" selectionMode="single" selection="#{AlquilerItems.selectedCliente}" rowKey="#{cli.documento}">
+                        <p:column headerText="Nombre">
+                            <p:outputLabel value="#{cli.nombre}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Documento">
+                            <p:outputLabel value="#{cli.documento}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Email">
+                            <p:outputLabel value="#{cli.email}"></p:outputLabel>
+                        </p:column>
+                    </p:dataTable>
+                    
+                </p:layoutUnit>
+                <p:layoutUnit position="south">
+                    <p:panelGrid columns="2"  > 
+                        <p:commandButton value="Add Cilente" actionListener="#{AlquilerItems.addCliente()}" update="formuladioCliente" ></p:commandButton>
+                        <p:commandButton action = "RegistroClienteItem?faces-redirect = true" value="Consultar"/>
+                    </p:panelGrid>
+                    
+                        
+                </p:layoutUnit>
+                    
+            </p:layout>  
 	</h:form>
     </h:body>
 </html>
