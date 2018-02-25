@@ -12,6 +12,7 @@ import edu.eci.pdsw.samples.services.ExcepcionServiciosAlquiler;
 import edu.eci.pdsw.samples.services.ServiciosAlquiler;
 import java.io.Serializable;
 import java.sql.Date;
+import java.text.DateFormat;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.logging.Level;
@@ -43,7 +44,7 @@ public class AlquilerItemsBean implements Serializable {
     ServiciosAlquiler sp = ServiciosAlquiler.getInstance();
 
     public AlquilerItemsBean() throws ExcepcionServiciosAlquiler {
-        numeroItem = 0;
+        
         clientes = sp.consultarClientes();
         items = sp.consultarItemsDisponibles();
     }
@@ -64,7 +65,7 @@ public class AlquilerItemsBean implements Serializable {
         rentados = r;
     }
     
-    public List<Integer> getMultas(){
+    public List<Integer> getMultas() {
         calcularMulta();
         return multas;
     }
@@ -75,10 +76,14 @@ public class AlquilerItemsBean implements Serializable {
     public int getNumeroItem(){
         return numeroItem;
     }
-    public void setNumeroItem(int i) throws ExcepcionServiciosAlquiler  {
+    public void setNumeroItem(int i) {
         
-        numeroItem = i;
-        item();    
+        try {
+            numeroItem = i;    
+            item();
+        } catch (ExcepcionServiciosAlquiler ex) {
+            Logger.getLogger(AlquilerItemsBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     public void registrar(){
         Date localDate = Date.valueOf(LocalDate.MAX);
@@ -96,24 +101,21 @@ public class AlquilerItemsBean implements Serializable {
         SelectedCliente = c;
     }
     
-    private void rentados(){
+    public void rentados(){
         try {
             rentados = sp.consultarItemsCliente(SelectedCliente.getDocumento());
         } catch (ExcepcionServiciosAlquiler ex) {
             Logger.getLogger(AlquilerItemsBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    private void item(){
-        try {
+    private void item() throws ExcepcionServiciosAlquiler{
             item = sp.consultarItem(numeroItem);
-        } catch (ExcepcionServiciosAlquiler ex) {
-            Logger.getLogger(AlquilerItemsBean.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    private void calcularMulta(){
         
     }
+    
+    private void calcularMulta() {
+    }
+
     
     public void addCliente(){
         clientes.add(0,(new Cliente(nombre,documento,telefono,direccion,email)));
@@ -161,4 +163,14 @@ public class AlquilerItemsBean implements Serializable {
         return sp.consultarCliente(documento).isVetado();
     }
     
+    public void registrarAlquiler() throws ExcepcionServiciosAlquiler{
+        LocalDate df = LocalDate.now();
+        Date d = Date.valueOf(df);
+        sp.registrarAlquilerCliente(d, SelectedCliente.getDocumento(), item, 5);
+        
+        
+    }
+    public void nothin(){
+        
+    }
 }

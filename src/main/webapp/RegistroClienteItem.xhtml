@@ -11,23 +11,30 @@
     </h:head>
     <h:body>
 	<h:form>
-            <p:dataTable>
+            
+            <p:dataTable id="prestamos" var="cli" value="#{AlquilerItems.rentados}">   
+                <f:facet name="header">
+                    Items Rentados de #{AlquilerItems.selectedCliente.nombre}
+                </f:facet>
                 <p:column headerText="Items Alquilados">
-                    <h:outputText value="#{AlquilerItems.rentados}" />
+                    <h:outputText value="#{cli.nombre}" />
+                </p:column>
+                <p:column headerText="Descripcion">
+                    <h:outputText value="#{cli.descpricion}" />
                 </p:column>
                 <p:column headerText="Multa">
                     <h:outputText value="#{AlquilerItems.multas}" />
                 </p:column>
             </p:dataTable>
             <p:separator />
-            <p:outputLabel value="Item    ">
+            <p:outputLabel value="Item  ">
                 <p:inputText value="#{AlquilerItems.numeroItem}"></p:inputText>               
             </p:outputLabel>
             <p:separator />
-            <p:commandButton value="Registrar"></p:commandButton>
+            <p:commandButton value="Registrar" actionListener="#{AlquilerItems.registrarAlquiler()}" update="prestamos"></p:commandButton>
             <p:separator />
             
-            <p:commandButton action = "RegistroClientes?faces-redirect = true" value="Volver"/>
+            <p:commandButton action = "RegistroClientes?faces-redirect = true" value="Volver" actionListener="#{AlquilerItems.nothin()}"/>
             
                 
                 

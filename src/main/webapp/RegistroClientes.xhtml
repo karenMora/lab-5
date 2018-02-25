@@ -51,7 +51,7 @@
                 <p:layoutUnit position="south">
                     <p:panelGrid columns="2"  > 
                         <p:commandButton value="Add Cilente" actionListener="#{AlquilerItems.addCliente()}" update="formuladioCliente" ></p:commandButton>
-                        <p:commandButton action = "RegistroClienteItem?faces-redirect = true" value="Consultar"/>
+                        <p:commandButton action = "RegistroClienteItem?faces-redirect = true" value="Consultar" actionListener="#{AlquilerItems.rentados}"/>
                     </p:panelGrid>
                     
                         

@@ -7,6 +7,7 @@ package edu.eci.pdsw.samples.entities;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.time.LocalDate;
 
 /**
  *
@@ -57,6 +58,13 @@ public class ItemRentado implements Serializable{
         this.fechafinrenta = fechafinrenta;
     }
 
-   
+   public String getNombre(){
+       return item.getNombre();
+   }
+   public String getDescpricion(){
+       return item.getDescripcion();
+   }
+
+
 
 }
